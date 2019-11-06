@@ -3,8 +3,8 @@ ENTRY(_start)
 
 MEMORY {
 	rom : ORIGIN = 0x00000000, LENGTH = 0x00008000
-	sram : ORIGIN = 0x10000000, LENGTH = 0x00008000
-	main_ram : ORIGIN = 0x40000000, LENGTH = 0x10000000
+	sram : ORIGIN = 0x01000000, LENGTH = 0x00001000
+	main_ram : ORIGIN = 0x40000000, LENGTH = 0x00800000
 }
 
 SECTIONS
@@ -60,4 +60,4 @@ SECTIONS
 }
 
 PROVIDE(_fstack = ORIGIN(main_ram) + LENGTH(main_ram) - 4);
-PROVIDE(flush_cpu_dcache = 0x2b7c);
+PROVIDE(flush_cpu_dcache = 0x2374);
