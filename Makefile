@@ -8,7 +8,11 @@ OBJCOPY := riscv64-unknown-elf-objcopy
 OBJDUMP := riscv64-unknown-elf-objdump
 LD := $(CC)
 
-all: test.bin test.dump
+all: test.fbi test.dump
+
+test.fbi: test.bin
+	python3 -m litex.soc.software.mkmscimg -o $@ -l -f $<
+	chmod -x $@
 
 test.bin: test.elf
 	$(OBJCOPY) -O binary $< $@
@@ -27,6 +31,6 @@ test.elf: crt0-vexriscv.o main.o
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 clean:
-	rm *.o *.elf *.bin *.dump
+	rm *.o *.elf *.bin *.dump *.fbi
 
 .PHONY: all clean
